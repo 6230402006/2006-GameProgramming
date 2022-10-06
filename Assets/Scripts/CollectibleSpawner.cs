@@ -1,0 +1,44 @@
+using System.Collections;
+using UnityEngine;
+using DG.Tweening;
+
+public class CollectibleSpawner : MonoBehaviour
+{
+    
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private GameObject collectibleGameObject;
+    [SerializeField] private Transform tweenEndPoint;
+    [SerializeField] private AudioSource spawnSoundEffect;
+    
+    [Header("Collectible Settings")]
+    [SerializeField] private float respawnTime = 4f;
+
+    private void Start()
+    {
+        transform.DOMove(tweenEndPoint.position, 3f).SetEase(Ease.InOutQuad).SetLoops(-1, LoopType.Yoyo);
+    }
+
+    private IEnumerator RespawnCollectible()
+    {
+        yield return new WaitForSeconds(respawnTime);
+        spawnSoundEffect.Play();
+        SetOutlineSpriteActive(false);
+        collectibleGameObject.SetActive(true);
+    }
+
+    private void SetOutlineSpriteActive(bool state)
+    {
+        spriteRenderer.enabled = state;
+    }
+
+    public void SetOutlineSprite(Sprite sprite)
+    {
+        spriteRenderer.sprite = sprite;
+    }
+    
+    public void StartRespawningCountdown() // This method is to let other script trigger the respawn countdown, and let this script handle the coroutine.
+    {
+        SetOutlineSpriteActive(true);
+        StartCoroutine(RespawnCollectible());
+    }
+}
