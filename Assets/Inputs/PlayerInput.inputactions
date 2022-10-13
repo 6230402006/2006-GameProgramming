@@ -26,7 +26,7 @@
                 {
                     "name": "Quit",
                     "type": "Button",
-                    "id": "4730a6b9-7098-452b-ba79-af1d2d085c5d",
+                    "id": "a14c0c19-8084-4d5e-b96e-cebbad8b4565",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -113,7 +113,7 @@
                 },
                 {
                     "name": "",
-                    "id": "4bbe6a1c-8078-4a05-a91a-1d5f35667301",
+                    "id": "20792d39-9f99-423e-93e8-81d40b895573",
                     "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
@@ -124,7 +124,7 @@
                 },
                 {
                     "name": "",
-                    "id": "acde3f4c-9d28-4ce3-8b25-a0ecf505ba75",
+                    "id": "a556a427-cbb1-47da-81cc-71954247199a",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",

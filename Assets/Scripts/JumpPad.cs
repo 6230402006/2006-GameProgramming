@@ -3,18 +3,25 @@ using UnityEngine;
 public class JumpPad : MonoBehaviour
 {
     [SerializeField] private Animator animator;
+    [SerializeField] private AudioPlayer audioPlayer;
+    [SerializeField] private SoAudioClips jumpPadAudioClips;
     [SerializeField] private float jumpPadForce = 13f;
     [SerializeField] private float additionalSleepJumpTime = 0.3f;
-    [SerializeField] private AudioSource jumpSpring;
     
     private static readonly int Bounce = Animator.StringToHash("Bounce");
 
-    public float GetJumpPadForce() => jumpPadForce;
-    public float GetAdditionalSleepJumpTime() => additionalSleepJumpTime;
-    
-    public void TriggerJumpPad()
+    private void TriggerJumpPad()
     {
-        jumpSpring.Play();
         animator.SetTrigger(Bounce);
+        audioPlayer.PlaySound(jumpPadAudioClips);
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (!col.TryGetComponent(out PlayerCollision playerCollision)) return;
+
+        TriggerJumpPad();
+        playerCollision.MuteFallImpactSounds();
+        playerCollision.Bounce(jumpPadForce, additionalSleepJumpTime);
     }
 }
